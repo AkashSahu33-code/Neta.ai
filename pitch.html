@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NētāAI — Pitch Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #06060f;
+            --blue: #4F9CF7;
+            --green: #4ECDC4;
+            --amber: #FFB347;
+            --rose: #FF6B9D;
+            --purple: #A78BFA;
+            --text: #e8eaf6;
+            --muted: #8e91b5;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+            height: 100vh;
+            cursor: default;
+        }
+
+        /* Slide Container */
+        .slides-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 80px;
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .slide.exit-left {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        /* Background effects */
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 80px 80px;
+            pointer-events: none;
+        }
+
+        .slide-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* ========== SLIDE 1: Title ========== */
+        .slide-1 .glow-1 { width: 500px; height: 500px; background: var(--blue); top: -150px; left: -100px; }
+        .slide-1 .glow-2 { width: 400px; height: 400px; background: var(--rose); bottom: -100px; right: -50px; }
+
+        .title-pre {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: var(--blue);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.3s forwards;
+        }
+
+        .title-main {
+            font-size: 86px;
+            font-weight: 900;
+            letter-spacing: -3px;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--blue), var(--green), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.5s forwards;
+        }
+
+        .title-sub {
+            font-size: 28px;
+            font-weight: 300;
+            color: var(--muted);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.7s forwards;
+        }
+
+        .title-badges {
+            display: flex;
+            gap: 16px;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.9s forwards;
+        }
+
+        .title-badge {
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid;
+        }
+
+        .title-badge.b1 { border-color: rgba(79,156,247,0.3); color: var(--blue); background: rgba(79,156,247,0.08); }
+        .title-badge.b2 { border-color: rgba(78,205,196,0.3); color: var(--green); background: rgba(78,205,196,0.08); }
+        .title-badge.b3 { border-color: rgba(255,179,71,0.3); color: var(--amber); background: rgba(255,179,71,0.08); }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== SLIDE 2: Problem ========== */
+        .slide-header {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--blue);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.15;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .problem-card {
+            background: rgba(15,15,35,0.7);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .problem-card .p-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .problem-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .problem-card p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ========== SLIDE 3: Solution ========== */
+        .solution-layout {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .solution-text { flex: 1; }
+
+        .solution-text h2 {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            line-height: 1.15;
+        }
+
+        .solution-text h2 span {
+            background: linear-gradient(135deg, var(--blue), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .solution-text p {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .solution-features {
+            list-style: none;
+        }
+
+        .solution-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .solution-features li .check {
+            width: 24px; height: 24px;
+            background: rgba(78,205,196,0.15);
+            color: var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            flex-shrink: 0;
+        }
+
+        .solution-visual {
+            flex: 0 0 420px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .sv-card {
+            background: rgba(15,15,35,0.8);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sv-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+
+        .sv-card:nth-child(1)::before { background: linear-gradient(90deg, var(--blue), #6C63FF); }
+        .sv-card:nth-child(2)::before { background: linear-gradient(90deg, var(--green), #44B89D); }
+        .sv-card:nth-child(3)::before { background: linear-gradient(90deg, var(--amber), #FF8C42); }
+        .sv-card:nth-child(4)::before { background: linear-gradient(90deg, var(--rose), #FF4081); }
+
+        .sv-card i { font-size: 28px; margin-bottom: 10px; display: block; }
+        .sv-card:nth-child(1) i { color: var(--blue); }
+        .sv-card:nth-child(2) i { color: var(--green); }
+        .sv-card:nth-child(3) i { color: var(--amber); }
+        .sv-card:nth-child(4) i { color: var(--rose); }
+
+        .sv-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+        .sv-card span { font-size: 11px; color: var(--muted); }
+
+        /* ========== SLIDE 4: Architecture ========== */
+        .arch-visual {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .arch-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .arch-box {
+            background: rgba(15,15,35,0.7);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .arch-box i { font-size: 16px; }
+        .arch-box.src i { color: var(--blue); }
+
+        .arch-arrow-row {
+            text-align: center;
+            padding: 10px 0;
+            color: var(--muted);
+            font-size: 18px;
+            animation: bounce2 2s infinite;
+        }
+
+        @keyframes bounce2 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
+        }
+
+        .arch-agents-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .arch-agent {
+            background: rgba(15,15,35,0.8);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .arch-agent::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+
+        .arch-agent:nth-child(1)::before { background: var(--blue); }
+        .arch-agent:nth-child(2)::before { background: var(--green); }
+        .arch-agent:nth-child(3)::before { background: var(--amber); }
+        .arch-agent:nth-child(4)::before { background: var(--rose); }
+
+        .arch-agent .aa-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin: 0 auto 10px;
+        }
+
+        .arch-agent:nth-child(1) .aa-icon { background: rgba(79,156,247,0.15); color: var(--blue); }
+        .arch-agent:nth-child(2) .aa-icon { background: rgba(78,205,196,0.15); color: var(--green); }
+        .arch-agent:nth-child(3) .aa-icon { background: rgba(255,179,71,0.15); color: var(--amber); }
+        .arch-agent:nth-child(4) .aa-icon { background: rgba(255,107,157,0.15); color: var(--rose); }
+
+        .arch-agent h4 { font-size: 14px; font-weight: 700; }
+        .arch-agent span { font-size: 11px; color: var(--muted); }
+
+        .arch-output-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .arch-output {
+            background: rgba(78,205,196,0.05);
+            border: 1px solid rgba(78,205,196,0.15);
+            border-radius: 10px;
+            padding: 12px 22px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--green);
+        }
+
+        /* ========== SLIDE 5: Impact ========== */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 1100px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .impact-card {
+            background: rgba(15,15,35,0.7);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .impact-number {
+            font-size: 52px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .impact-card:nth-child(1) .impact-number { color: var(--blue); }
+        .impact-card:nth-child(2) .impact-number { color: var(--green); }
+        .impact-card:nth-child(3) .impact-number { color: var(--amber); }
+        .impact-card:nth-child(4) .impact-number { color: var(--rose); }
+
+        .impact-label {
+            font-size: 14px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .market-text {
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .market-text p {
+            font-size: 18px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .market-text strong {
+            color: var(--text);
+        }
+
+        /* ========== SLIDE 6: Demo CTA ========== */
+        .cta-icon {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 0 60px rgba(79,156,247,0.3);
+            animation: ctaPulse 3s infinite;
+        }
+
+        @keyframes ctaPulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(79,156,247,0.2); }
+            50% { box-shadow: 0 0 80px rgba(79,156,247,0.4); }
+        }
+
+        .cta-title {
+            font-size: 56px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+        }
+
+        .cta-sub {
+            font-size: 20px;
+            color: var(--muted);
+            margin-bottom: 36px;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--blue), #6C63FF);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-family: inherit;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(79,156,247,0.4);
+        }
+
+        .cta-team {
+            margin-top: 48px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .cta-team strong {
+            color: var(--text);
+        }
+
+        /* ========== Navigation ========== */
+        .nav-bar {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 20px;
+            background: rgba(15,15,35,0.9);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 50px;
+            backdrop-filter: blur(20px);
+            z-index: 100;
+        }
+
+        .nav-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--blue);
+            box-shadow: 0 0 10px rgba(79,156,247,0.4);
+            width: 28px;
+            border-radius: 5px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text);
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover { background: rgba(255,255,255,0.1); }
+
+        .slide-count {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* Fullscreen hint */
+        .fs-hint {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 11px;
+            color: var(--muted);
+            background: rgba(15,15,35,0.8);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.06);
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        .fs-hint:hover { color: var(--text); }
+
+        @media (max-width: 1024px) {
+            .slide { padding: 40px; }
+            .title-main { font-size: 56px; }
+            .slide-title { font-size: 36px; }
+            .problem-grid { grid-template-columns: 1fr; max-width: 500px; }
+            .solution-layout { flex-direction: column; }
+            .solution-visual { flex: auto; width: 100%; }
+            .arch-agents-row { grid-template-columns: repeat(2, 1fr); }
+            .impact-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="fs-hint" onclick="toggleFullscreen()">
+        <i class="fas fa-expand"></i> Press F11 for fullscreen
+    </div>
+
+    <div class="slides-wrapper">
+        <!-- SLIDE 1: Title -->
+        <div class="slide slide-1 active" data-slide="1">
+            <div class="slide-glow glow-1"></div>
+            <div class="slide-glow glow-2"></div>
+            <div class="title-pre">Hackathon 2026 — Multi-Agent AI Platform</div>
+            <div class="title-main">NētāAI</div>
+            <div class="title-sub">AI Co-Pilot for Public Leaders & Administrators</div>
+            <div class="title-badges">
+                <span class="title-badge b1">🤖 Agentic AI</span>
+                <span class="title-badge b2">📍 Booth-Level Intelligence</span>
+                <span class="title-badge b3">🏛️ Hyperlocal Governance</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Problem -->
+        <div class="slide slide-2" data-slide="2">
+            <div class="slide-header">THE PROBLEM</div>
+            <div class="slide-title">Public leaders are drowning in data<br>but starving for insights</div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="p-icon">📄</div>
+                    <h3>Information Overload</h3>
+                    <p>1000s of documents, reports, and RTIs — manually processed. No time, no insights.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="p-icon">🔍</div>
+                    <h3>Zero Ground Intelligence</h3>
+                    <p>No real-time data on voter sentiment, booth trends, or community issues. Decisions made blindly.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="p-icon">🕳️</div>
+                    <h3>Accountability Gap</h3>
+                    <p>₹Crores spent on development — but no proof, no tracking, no citizen notification.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Solution -->
+        <div class="slide slide-3" data-slide="3">
+            <div class="solution-layout">
+                <div class="solution-text">
+                    <div class="slide-header" style="text-align:left;">OUR SOLUTION</div>
+                    <h2>4 AI Agents, one<br><span>Intelligent Command Centre</span></h2>
+                    <p>NētāAI deploys a multi-agent agentic AI system where each agent acts as a digital department — processing data in parallel, generating insights, and enabling data-driven governance.</p>
+                    <ul class="solution-features">
+                        <li><span class="check"><i class="fas fa-check"></i></span> Summarize 100-page documents in seconds</li>
+                        <li><span class="check"><i class="fas fa-check"></i></span> Booth-level voter segmentation across 250+ booths</li>
+                        <li><span class="check"><i class="fas fa-check"></i></span> Real-time development tracking with proof</li>
+                        <li><span class="check"><i class="fas fa-check"></i></span> Sentiment analysis from social media & ground data</li>
+                        <li><span class="check"><i class="fas fa-check"></i></span> Automated citizen notifications by location</li>
+                    </ul>
+                </div>
+                <div class="solution-visual">
+                    <div class="sv-card">
+                        <i class="fas fa-file-alt"></i>
+                        <h4>Agent 1</h4>
+                        <span>Document Intelligence</span>
+                    </div>
+                    <div class="sv-card">
+                        <i class="fas fa-users"></i>
+                        <h4>Agent 2</h4>
+                        <span>Community Intel</span>
+                    </div>
+                    <div class="sv-card">
+                        <i class="fas fa-hard-hat"></i>
+                        <h4>Agent 3</h4>
+                        <span>Governance Tracking</span>
+                    </div>
+                    <div class="sv-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Agent 4</h4>
+                        <span>Sentiment & Workers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Architecture -->
+        <div class="slide slide-4" data-slide="4">
+            <div class="slide-header">ARCHITECTURE</div>
+            <div class="slide-title">Multi-Agent Agentic AI Pipeline</div>
+            <div class="arch-visual">
+                <div class="arch-row">
+                    <div class="arch-box src"><i class="fas fa-file-pdf"></i> Documents</div>
+                    <div class="arch-box src"><i class="fas fa-poll"></i> Booth Data</div>
+                    <div class="arch-box src"><i class="fas fa-hashtag"></i> Social Media</div>
+                    <div class="arch-box src"><i class="fas fa-clipboard"></i> Worker Reports</div>
+                </div>
+                <div class="arch-arrow-row"><i class="fas fa-chevron-down"></i> <i class="fas fa-chevron-down"></i> <i class="fas fa-chevron-down"></i></div>
+                <div class="arch-agents-row">
+                    <div class="arch-agent">
+                        <div class="aa-icon"><i class="fas fa-file-alt"></i></div>
+                        <h4>Agent 1</h4>
+                        <span>Document Intelligence</span>
+                    </div>
+                    <div class="arch-agent">
+                        <div class="aa-icon"><i class="fas fa-users"></i></div>
+                        <h4>Agent 2</h4>
+                        <span>Community Intel</span>
+                    </div>
+                    <div class="arch-agent">
+                        <div class="aa-icon"><i class="fas fa-hard-hat"></i></div>
+                        <h4>Agent 3</h4>
+                        <span>Governance Tracking</span>
+                    </div>
+                    <div class="arch-agent">
+                        <div class="aa-icon"><i class="fas fa-chart-line"></i></div>
+                        <h4>Agent 4</h4>
+                        <span>Sentiment & Workers</span>
+                    </div>
+                </div>
+                <div class="arch-arrow-row"><i class="fas fa-chevron-down"></i> <i class="fas fa-chevron-down"></i> <i class="fas fa-chevron-down"></i></div>
+                <div class="arch-output-row">
+                    <div class="arch-output"><i class="fas fa-lightbulb"></i> Insights</div>
+                    <div class="arch-output"><i class="fas fa-bell"></i> Alerts</div>
+                    <div class="arch-output"><i class="fas fa-pen-fancy"></i> Drafts</div>
+                    <div class="arch-output"><i class="fas fa-check-circle"></i> Decisions</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Impact -->
+        <div class="slide slide-5" data-slide="5">
+            <div class="slide-header">IMPACT & MARKET</div>
+            <div class="slide-title">Built for Scale</div>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <div class="impact-number">4</div>
+                    <div class="impact-label">AI Agents Working<br>in Parallel</div>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-number">250+</div>
+                    <div class="impact-label">Booths Analyzed<br>Per Constituency</div>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-number">10x</div>
+                    <div class="impact-label">Faster Decision<br>Making</div>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-number">543</div>
+                    <div class="impact-label">Lok Sabha Seats<br>Addressable Market</div>
+                </div>
+            </div>
+            <div class="market-text">
+                <p>India has <strong>543 MPs, 4,000+ MLAs, and 250,000+ local leaders</strong> — all making decisions without data intelligence. NētāAI transforms how public leaders govern, engage, and deliver results. <strong>A ₹100 crore+ market opportunity.</strong></p>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Demo CTA -->
+        <div class="slide slide-6" data-slide="6">
+            <div class="cta-icon"><i class="fas fa-rocket"></i></div>
+            <div class="cta-title">Let's Demo</div>
+            <div class="cta-sub">Watch 4 AI agents process a real scenario in real-time</div>
+            <a class="cta-btn" href="index.html" target="_blank">
+                <i class="fas fa-play"></i> Open Live Dashboard
+            </a>
+            <div class="cta-team">
+                Built by <strong>Team NētāAI</strong> — Hackathon 2026
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <button class="nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+        <div class="nav-dots" id="navDots"></div>
+        <span class="slide-count" id="slideCount">1 / 6</span>
+        <button class="nav-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <script>
+        const totalSlides = 6;
+        let currentSlide = 1;
+
+        // Build dots
+        const dotsContainer = document.getElementById('navDots');
+        for (let i = 1; i <= totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot' + (i === 1 ? ' active' : '');
+            dot.dataset.slide = i;
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        function goToSlide(n) {
+            if (n < 1 || n > totalSlides || n === currentSlide) return;
+
+            const current = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+            const next = document.querySelector(`.slide[data-slide="${n}"]`);
+
+            if (n > currentSlide) {
+                current.classList.remove('active');
+                current.classList.add('exit-left');
+                next.style.transform = 'translateX(60px)';
+            } else {
+                current.classList.remove('active');
+                current.style.transform = 'translateX(60px)';
+                next.classList.remove('exit-left');
+                next.style.transform = 'translateX(-60px)';
+            }
+
+            setTimeout(() => {
+                next.classList.add('active');
+                next.style.transform = '';
+            }, 50);
+
+            setTimeout(() => {
+                current.classList.remove('exit-left');
+                current.style.transform = '';
+            }, 600);
+
+            currentSlide = n;
+            updateNav();
+        }
+
+        function nextSlide() { goToSlide(currentSlide + 1); }
+        function prevSlide() { goToSlide(currentSlide - 1); }
+
+        function updateNav() {
+            document.querySelectorAll('.nav-dot').forEach(d => {
+                d.classList.toggle('active', parseInt(d.dataset.slide) === currentSlide);
+            });
+            document.getElementById('slideCount').textContent = `${currentSlide} / ${totalSlides}`;
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', nextSlide);
+        document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    </script>
+</body>
+</html>

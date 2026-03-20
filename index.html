@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NētāAI — AI Co-Pilot for Public Leaders & Administrators. Multi-agent intelligence platform for hyperlocal governance.">
+    <title>NētāAI — AI Co-Pilot for Public Leaders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-name">NētāAI</span>
+                    <span class="logo-tag">Co-Pilot Platform</span>
+                </div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <span class="nav-label">MAIN</span>
+                <a href="#" class="nav-item active" data-page="overview" id="nav-overview">
+                    <i class="fas fa-th-large"></i>
+                    <span>Overview</span>
+                </a>
+                <a href="#" class="nav-item" data-page="architecture" id="nav-architecture">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Architecture</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">AI AGENTS</span>
+                <a href="#" class="nav-item" data-page="agent1" id="nav-agent1">
+                    <div class="agent-dot dot-blue"></div>
+                    <span>Document Intelligence</span>
+                </a>
+                <a href="#" class="nav-item" data-page="agent2" id="nav-agent2">
+                    <div class="agent-dot dot-green"></div>
+                    <span>Community Intel</span>
+                </a>
+                <a href="#" class="nav-item" data-page="agent3" id="nav-agent3">
+                    <div class="agent-dot dot-amber"></div>
+                    <span>Governance Tracking</span>
+                </a>
+                <a href="#" class="nav-item" data-page="agent4" id="nav-agent4">
+                    <div class="agent-dot dot-rose"></div>
+                    <span>Sentiment & Workers</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">DEMO</span>
+                <a href="#" class="nav-item" data-page="live-demo" id="nav-demo">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Live Demo</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="system-status">
+                <div class="status-dot pulse"></div>
+                <span>All Agents Active</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="topbar-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search documents, data, agents..." id="globalSearch">
+            </div>
+            <div class="topbar-actions">
+                <div class="api-mode-indicator" id="apiModeIndicator" title="Click Settings to configure AI">
+                    <span class="api-dot offline"></span>
+                    <span class="api-label">Mock Mode</span>
+                </div>
+                <button class="topbar-btn" id="settingsBtn" title="API Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="topbar-btn" id="notifBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </button>
+                <div class="user-avatar">
+                    <span>MLA</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ==================== OVERVIEW PAGE ==================== -->
+        <section class="page active" id="page-overview">
+            <div class="page-header">
+                <div>
+                    <h1>Co-Pilot Dashboard</h1>
+                    <p class="subtitle">Multi-Agent Intelligence Overview</p>
+                </div>
+                <div class="header-actions">
+                    <span class="date-display" id="dateDisplay"></span>
+                </div>
+            </div>
+
+            <!-- Metric Cards -->
+            <div class="metrics-grid">
+                <div class="metric-card" id="metric1">
+                    <div class="metric-icon blue"><i class="fas fa-file-alt"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-value" data-count="1247">0</span>
+                        <span class="metric-label">Documents Processed</span>
+                    </div>
+                    <div class="metric-trend up"><i class="fas fa-arrow-up"></i> 12%</div>
+                </div>
+                <div class="metric-card" id="metric2">
+                    <div class="metric-icon green"><i class="fas fa-users"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-value" data-count="342568">0</span>
+                        <span class="metric-label">Voters Analyzed</span>
+                    </div>
+                    <div class="metric-trend up"><i class="fas fa-arrow-up"></i> 8%</div>
+                </div>
+                <div class="metric-card" id="metric3">
+                    <div class="metric-icon amber"><i class="fas fa-hard-hat"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-value" data-count="89">0</span>
+                        <span class="metric-label">Projects Tracked</span>
+                    </div>
+                    <div class="metric-trend up"><i class="fas fa-arrow-up"></i> 23%</div>
+                </div>
+                <div class="metric-card" id="metric4">
+                    <div class="metric-icon rose"><i class="fas fa-smile"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-value" data-count="72">0</span>
+                        <span class="metric-label">Sentiment Score</span>
+                    </div>
+                    <div class="metric-trend down"><i class="fas fa-arrow-down"></i> 3%</div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="charts-grid">
+                <div class="chart-card wide">
+                    <div class="chart-header">
+                        <h3>Sentiment Trend (Last 30 Days)</h3>
+                        <div class="chart-legend">
+                            <span class="legend-item"><span class="legend-dot" style="background:#4F9CF7"></span> Positive</span>
+                            <span class="legend-item"><span class="legend-dot" style="background:#FF6B9D"></span> Negative</span>
+                            <span class="legend-item"><span class="legend-dot" style="background:#FFB347"></span> Neutral</span>
+                        </div>
+                    </div>
+                    <canvas id="sentimentChart" height="100"></canvas>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Voter Segmentation</h3>
+                    </div>
+                    <canvas id="voterChart" height="180"></canvas>
+                </div>
+            </div>
+
+            <!-- Agent Status Cards -->
+            <div class="agents-status-grid">
+                <div class="agent-status-card agent-blue" data-page="agent1">
+                    <div class="agent-status-header">
+                        <div class="agent-avatar blue"><i class="fas fa-file-alt"></i></div>
+                        <div class="agent-status-indicator online"></div>
+                    </div>
+                    <h4>Document Intelligence</h4>
+                    <p>Processing policy brief on budget allocation…</p>
+                    <div class="agent-progress">
+                        <div class="progress-bar" style="width: 78%"></div>
+                    </div>
+                    <span class="agent-task-count">23 tasks today</span>
+                </div>
+                <div class="agent-status-card agent-green" data-page="agent2">
+                    <div class="agent-status-header">
+                        <div class="agent-avatar green"><i class="fas fa-users"></i></div>
+                        <div class="agent-status-indicator online"></div>
+                    </div>
+                    <h4>Community Intelligence</h4>
+                    <p>Analyzing Ward 14 booth-level demographics…</p>
+                    <div class="agent-progress">
+                        <div class="progress-bar" style="width: 45%"></div>
+                    </div>
+                    <span class="agent-task-count">15 tasks today</span>
+                </div>
+                <div class="agent-status-card agent-amber" data-page="agent3">
+                    <div class="agent-status-header">
+                        <div class="agent-avatar amber"><i class="fas fa-hard-hat"></i></div>
+                        <div class="agent-status-indicator online"></div>
+                    </div>
+                    <h4>Governance Tracking</h4>
+                    <p>Verifying road repair completion in Sector 9…</p>
+                    <div class="agent-progress">
+                        <div class="progress-bar" style="width: 92%"></div>
+                    </div>
+                    <span class="agent-task-count">8 tasks today</span>
+                </div>
+                <div class="agent-status-card agent-rose" data-page="agent4">
+                    <div class="agent-status-header">
+                        <div class="agent-avatar rose"><i class="fas fa-chart-line"></i></div>
+                        <div class="agent-status-indicator online"></div>
+                    </div>
+                    <h4>Sentiment & Workers</h4>
+                    <p>Monitoring Twitter sentiment on water supply issue…</p>
+                    <div class="agent-progress">
+                        <div class="progress-bar" style="width: 61%"></div>
+                    </div>
+                    <span class="agent-task-count">31 tasks today</span>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="activity-section">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Real-Time Agent Activity</h3>
+                        <button class="btn-ghost" id="refreshActivity"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                    <div class="activity-feed" id="activityFeed">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ARCHITECTURE PAGE ==================== -->
+        <section class="page" id="page-architecture">
+            <div class="page-header">
+                <div>
+                    <h1>System Architecture</h1>
+                    <p class="subtitle">Multi-Agent Agentic AI Pipeline</p>
+                </div>
+            </div>
+
+            <div class="arch-flow">
+                <!-- Data Sources -->
+                <div class="arch-tier">
+                    <h3 class="arch-tier-label"><i class="fas fa-database"></i> Data Sources</h3>
+                    <div class="arch-nodes">
+                        <div class="arch-node source"><i class="fas fa-file-pdf"></i><span>Government Documents</span></div>
+                        <div class="arch-node source"><i class="fas fa-poll"></i><span>Booth-Level Data</span></div>
+                        <div class="arch-node source"><i class="fas fa-hashtag"></i><span>Social Media</span></div>
+                        <div class="arch-node source"><i class="fas fa-clipboard-list"></i><span>Worker Reports</span></div>
+                    </div>
+                </div>
+
+                <div class="arch-arrow"><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-down"></i></div>
+
+                <!-- Processing Layer -->
+                <div class="arch-tier">
+                    <h3 class="arch-tier-label"><i class="fas fa-brain"></i> Multi-Agent AI System</h3>
+                    <div class="arch-agents-grid">
+                        <div class="arch-agent-card blue">
+                            <div class="arch-agent-icon"><i class="fas fa-file-alt"></i></div>
+                            <h4>Agent 1</h4>
+                            <p>Document Intelligence</p>
+                            <ul>
+                                <li>Summarization</li>
+                                <li>Speech Drafting</li>
+                                <li>Key Insights Extraction</li>
+                            </ul>
+                        </div>
+                        <div class="arch-agent-card green">
+                            <div class="arch-agent-icon"><i class="fas fa-users"></i></div>
+                            <h4>Agent 2</h4>
+                            <p>Community Intelligence</p>
+                            <ul>
+                                <li>Voter Segmentation</li>
+                                <li>Booth Analytics</li>
+                                <li>Demographic Mapping</li>
+                            </ul>
+                        </div>
+                        <div class="arch-agent-card amber">
+                            <div class="arch-agent-icon"><i class="fas fa-hard-hat"></i></div>
+                            <h4>Agent 3</h4>
+                            <p>Governance Tracking</p>
+                            <ul>
+                                <li>Project Verification</li>
+                                <li>Before/After Proof</li>
+                                <li>Citizen Alerts</li>
+                            </ul>
+                        </div>
+                        <div class="arch-agent-card rose">
+                            <div class="arch-agent-icon"><i class="fas fa-chart-line"></i></div>
+                            <h4>Agent 4</h4>
+                            <p>Sentiment & Workers</p>
+                            <ul>
+                                <li>Sentiment Analysis</li>
+                                <li>Worker Tracking</li>
+                                <li>Trend Detection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arch-arrow"><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-down"></i></div>
+
+                <!-- Output Layer -->
+                <div class="arch-tier">
+                    <h3 class="arch-tier-label"><i class="fas fa-tv"></i> AI Co-Pilot Dashboard</h3>
+                    <div class="arch-nodes output-nodes">
+                        <div class="arch-node output"><i class="fas fa-lightbulb"></i><span>Insights</span></div>
+                        <div class="arch-node output"><i class="fas fa-bell"></i><span>Alerts</span></div>
+                        <div class="arch-node output"><i class="fas fa-pen-fancy"></i><span>Drafts</span></div>
+                        <div class="arch-node output"><i class="fas fa-check-circle"></i><span>Decisions</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="tech-stack-section">
+                <h3><i class="fas fa-layer-group"></i> Tech Stack</h3>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <div class="tech-icon"><i class="fas fa-brain"></i></div>
+                        <span class="tech-name">LLM Engine</span>
+                        <span class="tech-detail">GPT-4 / Claude / Gemini</span>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon"><i class="fas fa-vector-square"></i></div>
+                        <span class="tech-name">Vector DB</span>
+                        <span class="tech-detail">Pinecone / ChromaDB</span>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon"><i class="fas fa-cogs"></i></div>
+                        <span class="tech-name">Orchestration</span>
+                        <span class="tech-detail">LangGraph / CrewAI</span>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon"><i class="fas fa-server"></i></div>
+                        <span class="tech-name">Backend</span>
+                        <span class="tech-detail">FastAPI / Node.js</span>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon"><i class="fas fa-palette"></i></div>
+                        <span class="tech-name">Frontend</span>
+                        <span class="tech-detail">React / Vanilla JS</span>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon"><i class="fas fa-map-marked-alt"></i></div>
+                        <span class="tech-name">Geo-Intel</span>
+                        <span class="tech-detail">Mapbox / Leaflet</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keywords for Judges -->
+            <div class="judge-keywords">
+                <h3><i class="fas fa-trophy"></i> Key Differentiators</h3>
+                <div class="keyword-pills">
+                    <span class="keyword-pill kw-1">🤖 Agentic AI Architecture</span>
+                    <span class="keyword-pill kw-2">📍 Booth-Level Intelligence</span>
+                    <span class="keyword-pill kw-3">🏛️ Hyperlocal Governance</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== AGENT 1 PAGE ==================== -->
+        <section class="page" id="page-agent1">
+            <div class="page-header">
+                <div class="agent-page-title">
+                    <div class="agent-avatar blue large"><i class="fas fa-file-alt"></i></div>
+                    <div>
+                        <h1>Document & Meeting Intelligence</h1>
+                        <p class="subtitle">Speech writer • Summarizer • Briefing assistant</p>
+                    </div>
+                </div>
+                <div class="agent-status-badge online"><span class="pulse-dot"></span> Online</div>
+            </div>
+
+            <div class="agent-layout">
+                <div class="agent-capabilities">
+                    <div class="cap-card">
+                        <i class="fas fa-compress-alt"></i>
+                        <h4>Summarize Documents</h4>
+                        <p>Condense lengthy government documents into actionable bullet points</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-microphone"></i>
+                        <h4>Draft Speeches</h4>
+                        <p>Generate speech drafts based on topic and audience</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-crosshairs"></i>
+                        <h4>Extract Action Items</h4>
+                        <p>Identify deadlines, responsible departments, and key decisions</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <h4>Meeting Briefs</h4>
+                        <p>Prepare structured briefs with statistics and policy implications</p>
+                    </div>
+                </div>
+
+                <div class="agent-demo-area">
+                    <h3>Try Agent 1</h3>
+                    <div class="demo-input-group">
+                        <select class="demo-select" id="agent1-task">
+                            <option value="summarize">📄 Summarize Document</option>
+                            <option value="speech">🎤 Draft Speech</option>
+                            <option value="extract">🔍 Extract Action Items</option>
+                            <option value="brief">📋 Generate Meeting Brief</option>
+                        </select>
+                        <textarea class="demo-textarea" id="agent1-input" placeholder="Paste your document text here or describe the speech topic...">The Municipal Corporation of Gurgaon has allocated ₹450 crore for infrastructure development in FY 2025-26. Key areas include road widening on NH-48 (₹120 crore), stormwater drainage in sectors 45-57 (₹85 crore), new smart streetlights across 200 km (₹45 crore), and a public park renovation in Sector 29 (₹30 crore). The remaining ₹170 crore is allocated for water supply enhancement. The deadline for phase 1 completion is September 2025.</textarea>
+                        <button class="btn-primary" id="agent1-run">
+                            <i class="fas fa-bolt"></i> Run Agent
+                        </button>
+                    </div>
+                    <div class="demo-output" id="agent1-output">
+                        <div class="output-placeholder">
+                            <i class="fas fa-robot"></i>
+                            <p>Agent output will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== AGENT 2 PAGE ==================== -->
+        <section class="page" id="page-agent2">
+            <div class="page-header">
+                <div class="agent-page-title">
+                    <div class="agent-avatar green large"><i class="fas fa-users"></i></div>
+                    <div>
+                        <h1>Voter & Community Intelligence</h1>
+                        <p class="subtitle">Booth analytics • Segmentation • Constituency insights</p>
+                    </div>
+                </div>
+                <div class="agent-status-badge online"><span class="pulse-dot"></span> Online</div>
+            </div>
+
+            <div class="agent-layout">
+                <div class="agent-capabilities">
+                    <div class="cap-card">
+                        <i class="fas fa-chart-pie"></i>
+                        <h4>Voter Segmentation</h4>
+                        <p>Classify voters by demographics — youth, farmers, women, seniors</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-map-pin"></i>
+                        <h4>Booth Analytics</h4>
+                        <p>Hyper-local booth-level insights for targeted outreach</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <h4>Beneficiary Tracking</h4>
+                        <p>Track government scheme beneficiaries geographically</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>Issue Mapping</h4>
+                        <p>Detect local issues affecting specific communities</p>
+                    </div>
+                </div>
+
+                <div class="agent-demo-area">
+                    <h3>Try Agent 2</h3>
+                    <div class="demo-input-group">
+                        <select class="demo-select" id="agent2-task">
+                            <option value="segment">📊 Segment Voters</option>
+                            <option value="booth">📍 Booth Analysis</option>
+                            <option value="beneficiary">🎯 Track Beneficiaries</option>
+                            <option value="issues">⚠️ Map Local Issues</option>
+                        </select>
+                        <textarea class="demo-textarea" id="agent2-input" placeholder="Enter booth number, ward details, or constituency data...">Ward 14, Booth 203-208, Sector 21-23, Gurgaon. Total voters: 12,450. Major communities: Jat (35%), Yadav (20%), Muslim (15%), Brahmin (10%), SC/ST (12%), Others (8%). Key issues reported: irregular water supply (65% complaints), broken roads (40%), stray cattle menace (25%). PM-KISAN beneficiaries: 890. Ujjwala beneficiaries: 1,200. Ayushman Bharat cards: 3,400.</textarea>
+                        <button class="btn-primary" id="agent2-run">
+                            <i class="fas fa-bolt"></i> Run Agent
+                        </button>
+                    </div>
+                    <div class="demo-output" id="agent2-output">
+                        <div class="output-placeholder">
+                            <i class="fas fa-robot"></i>
+                            <p>Agent output will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== AGENT 3 PAGE ==================== -->
+        <section class="page" id="page-agent3">
+            <div class="page-header">
+                <div class="agent-page-title">
+                    <div class="agent-avatar amber large"><i class="fas fa-hard-hat"></i></div>
+                    <div>
+                        <h1>Micro Accountability & Governance</h1>
+                        <p class="subtitle">Development tracking • Before/After proof • Citizen alerts</p>
+                    </div>
+                </div>
+                <div class="agent-status-badge online"><span class="pulse-dot"></span> Online</div>
+            </div>
+
+            <div class="agent-layout">
+                <div class="agent-capabilities">
+                    <div class="cap-card">
+                        <i class="fas fa-tasks"></i>
+                        <h4>Project Tracking</h4>
+                        <p>Monitor roads, streetlights, water supply, sanitation projects</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-images"></i>
+                        <h4>Before/After Verification</h4>
+                        <p>Visual proof-based verification of project completion</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-bell"></i>
+                        <h4>Citizen Notifications</h4>
+                        <p>Location-specific alerts to affected residents only</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-chart-bar"></i>
+                        <h4>Impact Reports</h4>
+                        <p>Micro-level accountability reports for transparency</p>
+                    </div>
+                </div>
+
+                <div class="agent-demo-area">
+                    <h3>Try Agent 3</h3>
+                    <div class="demo-input-group">
+                        <select class="demo-select" id="agent3-task">
+                            <option value="track">🏗️ Track Project</option>
+                            <option value="verify">✅ Verify Completion</option>
+                            <option value="notify">📢 Generate Notification</option>
+                            <option value="report">📊 Impact Report</option>
+                        </select>
+                        <textarea class="demo-textarea" id="agent3-input" placeholder="Enter project details, location, and status...">Project: Road resurfacing on Main Street, Sector 15, Gurgaon. Contractor: ABC Infrastructure Pvt Ltd. Budget: ₹2.3 crore. Start date: Jan 15, 2025. Expected completion: March 30, 2025. Current status: 85% complete. Affected households: 456 (Sector 15, Block A-D). Issues: Minor delay due to rain, 2 streetlights damaged during work. Before condition: Multiple potholes, water logging. Current: Fresh asphalt laid, drainage installed.</textarea>
+                        <button class="btn-primary" id="agent3-run">
+                            <i class="fas fa-bolt"></i> Run Agent
+                        </button>
+                    </div>
+                    <div class="demo-output" id="agent3-output">
+                        <div class="output-placeholder">
+                            <i class="fas fa-robot"></i>
+                            <p>Agent output will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== AGENT 4 PAGE ==================== -->
+        <section class="page" id="page-agent4">
+            <div class="page-header">
+                <div class="agent-page-title">
+                    <div class="agent-avatar rose large"><i class="fas fa-chart-line"></i></div>
+                    <div>
+                        <h1>Sentiment & Party Worker Management</h1>
+                        <p class="subtitle">Ground worker coordination • Sentiment analysis • Campaign insights</p>
+                    </div>
+                </div>
+                <div class="agent-status-badge online"><span class="pulse-dot"></span> Online</div>
+            </div>
+
+            <div class="agent-layout">
+                <div class="agent-capabilities">
+                    <div class="cap-card">
+                        <i class="fas fa-comment-dots"></i>
+                        <h4>Sentiment Analysis</h4>
+                        <p>Real-time analysis from social media, surveys, and news</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-user-tie"></i>
+                        <h4>Worker Management</h4>
+                        <p>Track party worker activities, performance, and outreach</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-fire"></i>
+                        <h4>Trend Detection</h4>
+                        <p>Detect emerging issues and concerns among citizens</p>
+                    </div>
+                    <div class="cap-card">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <h4>Performance Dashboard</h4>
+                        <p>Booth-level sentiment and worker performance metrics</p>
+                    </div>
+                </div>
+
+                <div class="agent-demo-area">
+                    <h3>Try Agent 4</h3>
+                    <div class="demo-input-group">
+                        <select class="demo-select" id="agent4-task">
+                            <option value="sentiment">💬 Analyze Sentiment</option>
+                            <option value="workers">👷 Worker Performance</option>
+                            <option value="trends">🔥 Detect Trends</option>
+                            <option value="dashboard">📊 Generate Dashboard</option>
+                        </select>
+                        <textarea class="demo-textarea" id="agent4-input" placeholder="Enter social media data, worker reports, or survey results...">Twitter mentions (last 48 hours): "Water supply in Sector 22 has been terrible for 3 days" (245 likes), "MLA ji finally fixed the road near market, thank you!" (890 likes), "Still waiting for the park renovation promise" (156 likes), "New streetlights in our colony are great!" (432 likes). Worker report: Booth 203 — Ravi Kumar visited 45 homes, distributed 120 scheme forms. Booth 205 — Priya Singh organized health camp, 200 attendees. Booth 207 — No activity reported for 5 days.</textarea>
+                        <button class="btn-primary" id="agent4-run">
+                            <i class="fas fa-bolt"></i> Run Agent
+                        </button>
+                    </div>
+                    <div class="demo-output" id="agent4-output">
+                        <div class="output-placeholder">
+                            <i class="fas fa-robot"></i>
+                            <p>Agent output will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== LIVE DEMO PAGE ==================== -->
+        <section class="page" id="page-live-demo">
+            <div class="page-header">
+                <div>
+                    <h1>Live Multi-Agent Demo</h1>
+                    <p class="subtitle">Watch all 4 agents process data simultaneously</p>
+                </div>
+            </div>
+
+            <div class="demo-launch">
+                <div class="demo-launch-card">
+                    <div class="demo-icon-ring">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h2>Multi-Agent Orchestration</h2>
+                    <p>Launch all 4 agents simultaneously to process a real-world scenario. Watch them work in parallel and generate coordinated insights.</p>
+                    <div class="scenario-selector">
+                        <h4>Choose Scenario</h4>
+                        <div class="scenario-cards" id="scenarioCards">
+                            <!-- Populated by JS from DEMO_SCENARIOS -->
+                        </div>
+                    </div>
+                    <button class="btn-launch" id="launchDemo">
+                        <i class="fas fa-play"></i> Launch All Agents
+                    </button>
+                </div>
+            </div>
+
+            <div class="demo-agents-live" id="demoAgentsLive" style="display:none;">
+                <div class="live-agent-panel" id="live-agent1">
+                    <div class="live-agent-header blue">
+                        <div class="agent-dot dot-blue"></div>
+                        <span>Agent 1 — Document Intelligence</span>
+                        <div class="live-status" id="live-status1">
+                            <div class="spinner"></div> Processing
+                        </div>
+                    </div>
+                    <div class="live-agent-output" id="live-output1">
+                        <div class="typing-indicator"><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+                <div class="live-agent-panel" id="live-agent2">
+                    <div class="live-agent-header green">
+                        <div class="agent-dot dot-green"></div>
+                        <span>Agent 2 — Community Intelligence</span>
+                        <div class="live-status" id="live-status2">
+                            <div class="spinner"></div> Processing
+                        </div>
+                    </div>
+                    <div class="live-agent-output" id="live-output2">
+                        <div class="typing-indicator"><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+                <div class="live-agent-panel" id="live-agent3">
+                    <div class="live-agent-header amber">
+                        <div class="agent-dot dot-amber"></div>
+                        <span>Agent 3 — Governance Tracking</span>
+                        <div class="live-status" id="live-status3">
+                            <div class="spinner"></div> Processing
+                        </div>
+                    </div>
+                    <div class="live-agent-output" id="live-output3">
+                        <div class="typing-indicator"><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+                <div class="live-agent-panel" id="live-agent4">
+                    <div class="live-agent-header rose">
+                        <div class="agent-dot dot-rose"></div>
+                        <span>Agent 4 — Sentiment & Workers</span>
+                        <div class="live-status" id="live-status4">
+                            <div class="spinner"></div> Processing
+                        </div>
+                    </div>
+                    <div class="live-agent-output" id="live-output4">
+                        <div class="typing-indicator"><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fas fa-cog"></i> AI Settings</h3>
+                <button class="modal-close" id="closeSettings"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>AI Provider</label>
+                    <select id="settingsProvider" class="demo-select">
+                        <option value="gemini">Google Gemini (Free)</option>
+                        <option value="openai">OpenAI / Compatible</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>API Key</label>
+                    <input type="password" id="settingsApiKey" class="demo-textarea" style="min-height:auto;padding:10px 14px;" placeholder="Enter your API key...">
+                    <span class="form-hint" id="apiHint">Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--blue)">aistudio.google.com/apikey</a></span>
+                </div>
+                <div class="form-group" id="openaiOptions" style="display:none;">
+                    <label>Base URL (optional)</label>
+                    <input type="text" id="settingsBaseUrl" class="demo-textarea" style="min-height:auto;padding:10px 14px;" placeholder="https://api.openai.com/v1">
+                    <label style="margin-top:10px;">Model</label>
+                    <input type="text" id="settingsModel" class="demo-textarea" style="min-height:auto;padding:10px 14px;" placeholder="gpt-4o-mini">
+                </div>
+                <div class="form-actions">
+                    <button class="btn-primary" id="saveSettings"><i class="fas fa-save"></i> Save & Activate</button>
+                    <span class="settings-status" id="settingsStatus"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
